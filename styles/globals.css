@@ -1,0 +1,67 @@
+:root {
+  --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
+    'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
+    'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
+
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+/* Add a class for the clicked state */
+.clicked {
+  background-color: #3498db; /* Set the background color for the clicked state */
+  color: #ffffff; /* Set the text color for the clicked state */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Add smooth transition */
+}
+a:hover {
+  color: #007bff; /* Change to the desired hover color */
+}
+
+/* Change background color on hover for an element with a specific class (e.g., .hover-effect) */
+.hover-effect:hover {
+  background-color: #f8f9fa; /* Change to the desired hover background color */
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  min-height: 100vh;
+  font-family: var(--font-mono);
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s ease; /* Add smooth color transition on hover */
+}
+
+a:hover {
+  color: #3498db; /* Change color on hover */
+}
+
+/* Add a bouncing animation to the main heading */
+h1 {
+  animation: bounce 1s infinite alternate; /* Bouncing animation */
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0); /* Start and end position of the bounce */
+  }
+  50% {
+    transform: translateY(-10px); /* Bounce up */
+  }
+}

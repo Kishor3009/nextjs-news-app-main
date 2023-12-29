@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Bootstrap theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="auth.css">
+    <title>Firebase login and register</title>
+</head>
+<body>
+
+<div class="navbar navbar-default">
+    <div class="navbar-header">
+        <a class="navbar-brand" >Unlock the door to endless possibilities. Sign in now!</a>
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+    </div>
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#" id="logout" style="display: none;">Log Out</a></li>
+        </ul>
+    </div>
+</div>
+<br>
+<div class="container">
+    <form name="registration_form" id="registration_form" method="post" action="#" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" name="email" id="email" class="form-control" placeholder="Enter your email">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" class="form-control" placeholder="Enter your password">
+                </div>
+                <button type="button" id="register" name="register" class="btn btn-success">Register Now</button>
+            </div>
+            <div class="col-sm-4">
+                <!-- Correct the path or location of the image -->
+                <!-- <img src="path/to/firebase_auth.png" alt="Firebase Authentication Image"> -->
+            </div>
+            <form name="login_form" id="login_form" method="post" action="#" enctype="multipart/form-data">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="login_email">Email</label>
+                        <input type="text" name="login_email" id="login_email" class="form-control" placeholder="Enter your email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="login_password">Password</label>
+                        <input type="password" name="login_password" id="login_password" class="form-control" placeholder="Enter your password">
+                    </div>
+                    <button type="button" id="login" name="login" class="btn btn-success">Login</button>
+                </div>
+            </form>
+        </div>
+    </form>
+</div>
+<br>
+<center>Developed by Kishor <a href="https://shinerweb.com/">Shinerweb</a></center>
+<script type="module">
+    // Firebase SDK imports
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-analytics.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js";
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+    apiKey: procees.env.APIKEY,
+    authDomain: "world-news-d14f0.firebaseapp.com",
+    projectId: "world-news-d14f0",
+    storageBucket: "world-news-d14f0.appspot.com",
+    messagingSenderId: "127599365414",
+    appId: "1:127599365414:web:de8e4a3953bb85be85c5e7"
+  };
+
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const auth = getAuth();
+
+    // New Registration code
+    document.getElementById("register").addEventListener("click", function () {
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                console.log(user);
+                alert("Registration successfully!!");
+            })
+            .catch((error) => {
+                const errorMessage = error.message;
+                console.log(errorMessage);
+                alert(errorMessage);
+            });
+    });
+
+    // Login code
+document.getElementById("login").addEventListener("click", function () {
+    var email = document.getElementById("login_email").value;
+    var password = document.getElementById("login_password").value;
+
+    signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            const user = userCredential.user;
+            console.log(user);
+            alert(user.email + " Login successfully!!!");
+            document.getElementById('logout').style.display = 'block';
+
+            // Redirect to the main page after successful login
+            window.location.href = "/aftlogin.tex"; // Replace "/main-page" with your actual main page URL
+        })
+        .catch((error) => {
+            const errorMessage = error.message;
+            console.log(errorMessage);
+            alert(errorMessage);
+        });
+});
+
+
+    // Logout code
+    document.getElementById("logout").addEventListener("click", function () {
+        signOut(auth).then(() => {
+            console.log('Sign-out successful.');
+            alert('Sign-out successful.');
+            document.getElementById('logout').style.display = 'none';
+        }).catch((error) => {
+            console.log('An error happened.');
+        });
+    });
+</script>
+</body>
+</html>
